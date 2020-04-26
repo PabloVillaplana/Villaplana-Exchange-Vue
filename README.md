@@ -1,5 +1,10 @@
 # platzi-exchange
 
+Demo: https://villaplana-exchange.netlify.app/
+Linkedin: https://www.linkedin.com/in/juan-pablo-villaplana-corrales-4655a05a/
+
+
+
 ## Project setup
 ```
 npm install
