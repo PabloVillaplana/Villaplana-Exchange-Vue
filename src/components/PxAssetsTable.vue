@@ -1,11 +1,12 @@
-
 <template>
   <table>
     <thead>
       <tr class="bg-gray-100 border-b-2 border-gray-400">
         <th></th>
         <th :class="{ up: this.sortOrder === 1, down: this.sortOrder === -1 }">
-          <span class="underline cursor-pointer" @click="changeSortOrder">Ranking</span>
+          <span class="underline cursor-pointer" @click="changeSortOrder"
+            >Ranking</span
+          >
         </th>
         <th>Nombre</th>
         <th>Precio</th>
@@ -49,13 +50,7 @@
         </td>
         <td>{{ a.priceUsd | dollar }}</td>
         <td>{{ a.marketCapUsd | dollar }}</td>
-        <td
-          :class="
-            a.changePercent24Hr.includes('-')
-              ? 'text-red-600'
-              : 'text-green-600'
-          "
-        >{{ a.changePercent24Hr | percent }}</td>
+        <td>{{ a.changePercent24Hr | percent }}</td>
         <td class="hidden sm:block">
           <px-button @custom-click="goToCoin(a.id)">
             <span>Detalle</span>
@@ -67,15 +62,15 @@
 </template>
 
 <script>
-import PxButton from '@/components/PxButton'
+import PxButton from "@/components/PxButton";
 export default {
-  name: 'PxAssetsTable',
+  name: "PxAssetsTable",
   components: { PxButton },
   data() {
     return {
-      filter: '',
+      filter: "",
       sortOrder: 1
-    }
+    };
   },
   props: {
     assets: {
@@ -85,7 +80,7 @@ export default {
   },
   computed: {
     filteredAssets() {
-      const altOrder = this.sortOrder === 1 ? -1 : 1
+      const altOrder = this.sortOrder === 1 ? -1 : 1;
       return this.assets
         .filter(
           a =>
@@ -94,29 +89,29 @@ export default {
         )
         .sort((a, b) => {
           if (parseInt(a.rank) > parseInt(b.rank)) {
-            return this.sortOrder
+            return this.sortOrder;
           }
-          return altOrder
-        })
+          return altOrder;
+        });
     }
   },
   methods: {
     goToCoin(id) {
-      this.$router.push({ name: 'coin-detail', params: { id } })
+      this.$router.push({ name: "coin-detail", params: { id } });
     },
     changeSortOrder() {
-      this.sortOrder = this.sortOrder === 1 ? -1 : 1
+      this.sortOrder = this.sortOrder === 1 ? -1 : 1;
     }
   }
-}
+};
 </script>
 
 <style scoped>
 .up::before {
-  content: '👆';
+  content: "👆";
 }
 .down::before {
-  content: '👇';
+  content: "👇";
 }
 td {
   padding: 20px 0px;

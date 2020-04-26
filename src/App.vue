@@ -7,34 +7,34 @@
 </template>
 
 <script>
-import PxHeader from '@/components/PxHeader'
+import PxHeader from "@/components/PxHeader";
 export default {
-  name: 'app',
+  name: "app",
   components: { PxHeader },
   data() {
     return {
       links: [
         {
-          title: 'BTC',
-          to: { name: 'coin-detail', params: { id: 'bitcoin' } }
+          title: "BTC",
+          to: { name: "coin-detail", params: { id: "bitcoin" } }
         },
         {
-          title: 'ETH',
-          to: { name: 'coin-detail', params: { id: 'ethereum' } }
+          title: "ETH",
+          to: { name: "coin-detail", params: { id: "ethereum" } }
         },
         {
-          title: 'XRP',
-          to: { name: 'coin-detail', params: { id: 'ripple' } }
+          title: "XRP",
+          to: { name: "coin-detail", params: { id: "ripple" } }
         }
       ]
-    }
+    };
   }
-}
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

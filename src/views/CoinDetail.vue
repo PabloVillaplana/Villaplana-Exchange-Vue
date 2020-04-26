@@ -52,7 +52,9 @@
           <button
             @click="toggleConverter"
             class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-          >{{ fromUsd ? `USD a ${asset.symbol}` : `${asset.symbol} a USD` }}</button>
+          >
+            {{ fromUsd ? `USD a ${asset.symbol}` : `${asset.symbol} a USD` }}
+          </button>
 
           <div class="flex flex-row my-5">
             <label class="w-full" for="convertValue">
@@ -66,7 +68,9 @@
             </label>
           </div>
 
-          <span class="text-xl">{{ convertResult }} {{ fromUsd ? asset.symbol : 'USD' }}</span>
+          <span class="text-xl"
+            >{{ convertResult }} {{ fromUsd ? asset.symbol : "USD" }}</span
+          >
         </div>
       </div>
 
@@ -80,7 +84,11 @@
 
       <h3 class="text-xl my-10">Mejores Ofertas de Cambio</h3>
       <table>
-        <tr v-for="m in markets" :key="`${m.exchangeId}-${m.priceUsd}`" class="border-b">
+        <tr
+          v-for="m in markets"
+          :key="`${m.exchangeId}-${m.priceUsd}`"
+          class="border-b"
+        >
           <td>
             <b>{{ m.exchangeId }}</b>
           </td>
@@ -94,7 +102,9 @@
             >
               <slot>Obtener Link</slot>
             </px-button>
-            <a v-else class="hover:underline text-green-600" target="_blanck">{{ m.url }}</a>
+            <a v-else class="hover:underline text-green-600" target="_blanck">{{
+              m.url
+            }}</a>
           </td>
         </tr>
       </table>
@@ -103,10 +113,10 @@
 </template>
 
 <script>
-import api from '@/api'
-import PxButton from '@/components/PxButton'
+import api from "@/api";
+import PxButton from "@/components/PxButton";
 export default {
-  name: 'CoinDetail',
+  name: "CoinDetail",
   components: { PxButton },
   data() {
     return {
@@ -116,74 +126,74 @@ export default {
       markets: [],
       fromUsd: true,
       convertValue: null
-    }
+    };
   },
   computed: {
     convertResult() {
       if (!this.convertValue) {
-        return 0
+        return 0;
       }
       const result = this.fromUsd
         ? this.convertValue / this.asset.priceUsd
-        : this.convertValue * this.asset.priceUsd
-      return result.toFixed(4)
+        : this.convertValue * this.asset.priceUsd;
+      return result.toFixed(4);
     },
     min() {
       return Math.min(
         ...this.history.map(h => parseFloat(h.priceUsd).toFixed(2))
-      )
+      );
     },
     max() {
       return Math.max(
         ...this.history.map(h => parseFloat(h.priceUsd).toFixed(2))
-      )
+      );
     },
     avg() {
       return Math.abs(
         ...this.history.map(h => parseFloat(h.priceUsd).toFixed(2))
-      )
+      );
     }
   },
   watch: {
     $route() {
-      this.getCoin()
+      this.getCoin();
     }
   },
   created() {
-    this.getCoin()
+    this.getCoin();
   },
   methods: {
     toggleConverter() {
-      this.fromUsd = !this.fromUsd
+      this.fromUsd = !this.fromUsd;
     },
     getWebSite(exchange) {
-      this.$set(exchange, 'isLoading', true)
+      this.$set(exchange, "isLoading", true);
       return api
         .getExchange(exchange.exchangeId)
         .then(res => {
-          this.$set(exchange, 'url', res.exchangeUrl)
+          this.$set(exchange, "url", res.exchangeUrl);
         })
         .finally(() => {
-          this.$set(exchange, 'isLoading', false)
-        })
+          this.$set(exchange, "isLoading", false);
+        });
     },
     getCoin() {
-      const id = this.$route.params.id
-      this.isLoading = true
+      const id = this.$route.params.id;
+      this.isLoading = true;
       Promise.all([
         api.getAsset(id),
         api.getAssetHistory(id),
         api.getMarkets(id)
       ])
         .then(([asset, history, markets]) => {
-          this.asset = asset
-          this.history = history
-          this.markets = markets
+          this.asset = asset;
+          this.history = history;
+          this.markets = markets;
         })
-        .finally(() => (this.isLoading = false))
+        .finally(() => (this.isLoading = false));
     }
   }
-}
+};
 </script>
 
 <style scoped>
@@ -192,6 +202,6 @@ td {
   text-align: center;
 }
 table {
-    width: 100%;
+  width: 100%;
 }
 </style>
