@@ -1,6 +1,7 @@
 # platzi-exchange
 
 Demo: https://villaplana-exchange.netlify.app/
+<br>
 Linkedin: https://www.linkedin.com/in/juan-pablo-villaplana-corrales-4655a05a/
 
 
